@@ -31,7 +31,7 @@ export default function ThreeScene({ repos }) {
             scene.add(sphere);
         });
 
-        camera.position.z = 10;
+        camera.position.z = 15;
 
         function animate() {
             requestAnimationFrame(animate);
