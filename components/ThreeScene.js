@@ -1,30 +1,28 @@
 import { useEffect, useRef } from "react";
 import * as THREE from "three";
 
-export default function ThreeScene({ repos = [] }) {
+export default function ThreeScene({ repos }) {
     const mountRef = useRef(null);
 
     useEffect(() => {
+        const width = mountRef.current.clientWidth;
+        const height = mountRef.current.clientHeight;
+
         const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(
-            75,
-            window.innerWidth / window.innerHeight,
-            0.1,
-            1000
-        );
-        const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
+        const camera = new THREE.PerspectiveCamera(75, width / height, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ alpha: true });
+        renderer.setSize(width, height);
         mountRef.current.appendChild(renderer.domElement);
 
         // Create spheres for each repo
-        repos.forEach((repo, index) => {
+        repos.forEach((repo) => {
             const geometry = new THREE.SphereGeometry(0.5, 32, 32);
             const material = new THREE.MeshBasicMaterial({ color: Math.random() * 0xffffff });
             const sphere = new THREE.Mesh(geometry, material);
             sphere.position.set(
-                (Math.random() - 0.5) * 10,
-                (Math.random() - 0.5) * 10,
-                (Math.random() - 0.5) * 10
+                (Math.random() - 0.5) * 5,
+                (Math.random() - 0.5) * 5,
+                (Math.random() - 0.5) * 5
             );
             scene.add(sphere);
         });
@@ -49,5 +47,5 @@ export default function ThreeScene({ repos = [] }) {
         };
     }, [repos]);
 
-    return <div ref={mountRef} />;
+    return <div ref={mountRef} className="w-full h-[400px] mx-auto" />;
 }
