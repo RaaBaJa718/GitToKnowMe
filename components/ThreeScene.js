@@ -5,6 +5,8 @@ export default function ThreeScene({ repos }) {
     const mountRef = useRef(null);
 
     useEffect(() => {
+        console.log("Three.js Scene is mounting...");
+
         const width = mountRef.current.clientWidth;
         const height = mountRef.current.clientHeight;
 
