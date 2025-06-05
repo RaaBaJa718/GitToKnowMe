@@ -4,4 +4,4 @@ const nextConfig = {
     experimental: { reactRefresh: false }
 };
 
-module.exports = nextConfig;
+export default nextConfig;
