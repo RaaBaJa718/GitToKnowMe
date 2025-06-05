@@ -5,6 +5,7 @@ export default function ThreeScene({ repos }) {
     const mountRef = useRef(null);
 
     useEffect(() => {
+        console.log("Repos received:", repos);
         console.log("Three.js Scene is mounting...");
 
         const width = mountRef.current.clientWidth;
@@ -17,7 +18,8 @@ export default function ThreeScene({ repos }) {
         mountRef.current.appendChild(renderer.domElement);
 
         // Create spheres for each repo
-        repos.forEach((repo) => {
+        repos.forEach((repo, index) => {
+            console.log(`Creating sphere for: ${repo.name}`);
             const geometry = new THREE.SphereGeometry(0.5, 32, 32);
             const material = new THREE.MeshBasicMaterial({ color: Math.random() * 0xffffff });
             const sphere = new THREE.Mesh(geometry, material);
@@ -29,7 +31,7 @@ export default function ThreeScene({ repos }) {
             scene.add(sphere);
         });
 
-        camera.position.z = 5;
+        camera.position.z = 10;
 
         function animate() {
             requestAnimationFrame(animate);
