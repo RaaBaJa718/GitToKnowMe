@@ -3,6 +3,7 @@ import Navbar from '../components/Navbar';
 import Footer from '../components/Footer';
 import RepoCard from '../components/RepoCard';
 import SearchBar from '../components/SearchBar';
+import ThreeScene from '../components/ThreeScene';
 import { getGitHubRepos } from '../lib/github';
 
 export async function getServerSideProps() {
@@ -27,6 +28,7 @@ export default function Projects({ repos }) {
             <Navbar />
             <div className="p-10">
                 <h1 className="text-3xl font-bold">My GitHub Projects</h1>
+                <ThreeScene />
                 <SearchBar onSearch={handleSearch} />
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 mt-6">
                     {filteredRepos.map(repo => (
