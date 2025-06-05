@@ -1,2 +1,5 @@
 .env.local
 node_modules
+.next/
+.next/cache/
+.next/static/webpack/
