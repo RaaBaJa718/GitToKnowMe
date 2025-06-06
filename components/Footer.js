@@ -11,13 +11,10 @@ export default function Footer() {
         >
             <p>© {new Date().getFullYear()} GitToKnowMe. All Rights Reserved.</p>
             <div className="mt-2">
-                <Link href="/about" passHref legacyBehavior>
-                    <motion.a
-                        whileHover={{ scale: 1.1 }}
-                        className="underline cursor-pointer"
-                    >
+                <Link href="/about">
+                    <motion.span whileHover={{ scale: 1.1 }} className="underline cursor-pointer">
                         About Us
-                    </motion.a>
+                    </motion.span>
                 </Link>
             </div>
         </motion.footer>
