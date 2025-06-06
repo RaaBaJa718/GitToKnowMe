@@ -17,19 +17,34 @@ export default function ThreeScene({ repos }) {
         renderer.setSize(width, height);
         mountRef.current.appendChild(renderer.domElement);
 
+        // Add a helper grid to the scene to verify rendering
+        const gridHelper = new THREE.GridHelper(10, 10);
+        scene.add(gridHelper);
+
+        // Add an Axes Helper (red = x, green = y, blue = z)
+        const axesHelper = new THREE.AxesHelper(5);
+        scene.add(axesHelper);
+
         // Create spheres for each repo
         repos.forEach((repo, index) => {
             console.log(`Creating sphere for: ${repo.name}`);
-            const geometry = new THREE.SphereGeometry(0.5, 32, 32);
+            const geometry = new THREE.SphereGeometry(1.5, 32, 32); // bigger sphere
             const material = new THREE.MeshBasicMaterial({ color: Math.random() * 0xffffff });
             const sphere = new THREE.Mesh(geometry, material);
             sphere.position.set(
                 (Math.random() - 0.5) * 5,
                 (Math.random() - 0.5) * 5,
-                (Math.random() - 0.5) * 5
+                -5 - Math.random() * 5 // z between -5 and -10
             );
             scene.add(sphere);
         });
+
+        // Add a test sphere at the origin
+        const testGeometry = new THREE.SphereGeometry(1.5, 32, 32);
+        const testMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+        const testSphere = new THREE.Mesh(testGeometry, testMaterial);
+        testSphere.position.set(0, 0, 0);
+        scene.add(testSphere);
 
         camera.position.z = 10;
 
@@ -46,10 +61,12 @@ export default function ThreeScene({ repos }) {
 
         // Clean up on unmount
         return () => {
-            mountRef.current.removeChild(renderer.domElement);
+            if (mountRef.current && renderer.domElement.parentNode === mountRef.current) {
+                mountRef.current.removeChild(renderer.domElement);
+            }
             renderer.dispose();
         };
     }, [repos]);
 
-    return <div ref={mountRef} className="w-full h-[400px] mx-auto" />;
+    return <div ref={mountRef} className="w-full h-[400px] bg-gray-900 border-2 border-red-500" />;
 }
